@@ -34,7 +34,7 @@ public class MyConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers("/register", "/customLogin", "/customLogout")
+                        authorizeRequests.requestMatchers("/register")
                                 .permitAll()
                                 .anyRequest().authenticated()
                 )
