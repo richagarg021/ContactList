@@ -23,11 +23,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private HttpServletRequest request;
+//
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
     public ResponseEntity<?> regsiterUser(@RequestBody User user){
