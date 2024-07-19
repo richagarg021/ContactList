@@ -44,7 +44,21 @@ public class ContactServiceImpl implements ContactService{
     }
 
     public Contact getContact(Long id){
-        return contactRepo.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
+        Contact contact = contactRepo.findById(id).orElse(null);
+        if(contact!=null){
+            User user = contact.getUser();
+            if(user.getUser_id().equals(userService.getCurrentUserId())){
+                return contact;
+            }
+            else{
+                throw new RuntimeException("Cannot access this user: Access Denied!");
+            }
+        }
+        else{
+            throw new RuntimeException("Contact not found!");
+        }
+
+//        return contactRepo.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
     }
 
     public Contact createContact(Contact contact){
@@ -57,7 +71,13 @@ public class ContactServiceImpl implements ContactService{
     public void deleteContact(Long id){
         Contact contact = contactRepo.findById(id).orElse(null);
         if(contact!=null){
-            contactRepo.delete(contact);
+            User user = contact.getUser();
+            if(user.getUser_id().equals(userService.getCurrentUserId())){
+                contactRepo.delete(contact);
+            }
+            else{
+                throw new RuntimeException("Cannot access this user: Access Denied!");
+            }
         }
         else
             throw new RuntimeException("Contact not found");
@@ -66,13 +86,19 @@ public class ContactServiceImpl implements ContactService{
     public Contact updateContact(Long id, Contact contact){
         Contact contactDb = contactRepo.findById(id).orElse(null);
         if(contactDb!=null){
-            contactDb.setName(contact.getName());
-            contactDb.setEmail(contact.getEmail());
-            contactDb.setPhone(contact.getPhone());
-            contactDb.setCity(contact.getCity());
-            contactDb.setPhotoUrl("");
-            contactRepo.save(contactDb);
-            return contactDb;
+            User user = contactDb.getUser();
+            if(user.getUser_id().equals(userService.getCurrentUserId())){
+                contactDb.setName(contact.getName());
+                contactDb.setEmail(contact.getEmail());
+                contactDb.setPhone(contact.getPhone());
+                contactDb.setCity(contact.getCity());
+                contactDb.setPhotoUrl("");
+                contactRepo.save(contactDb);
+                return contactDb;
+            }
+            else{
+                throw new RuntimeException("Cannot access this user: Access Denied!");
+            }
         }
         else
             throw new RuntimeException("Contact not found");

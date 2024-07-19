@@ -43,7 +43,7 @@ public class ContactController {
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Contact not found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -66,7 +66,7 @@ public class ContactController {
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Contact not found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -79,7 +79,7 @@ public class ContactController {
         }
         catch (Exception e){
             e.printStackTrace();
-            return new ResponseEntity<>("Contact not found!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

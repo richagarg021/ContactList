@@ -8,4 +8,8 @@ public interface UserService {
     public User registerUser(User user);
     public Long getCurrentUserId();
     public boolean emailExists(String email);
+
+    void deleteUser(Long id);
+
+    boolean authenticateUser(String email, String password);
 }

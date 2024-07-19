@@ -35,6 +35,26 @@ public class UserServiceImpl implements UserService{
         return null;
     }
 
+    public boolean authenticateUser(String username, String password){
+        try{
+            User user = userRepo.findByEmail(username);
+            if(user!=null && passwordEncoder.matches(password, user.getPassword())){
+                return true;
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("Invalid username or password!");
+        }
+        return false;
+    }
+
+
+    public void deleteUser(Long id){
+        User user = userRepo.findById(id).get();
+        userRepo.delete(user);
+    }
+
 
     public Long getCurrentUserId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
