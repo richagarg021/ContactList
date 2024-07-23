@@ -1,5 +1,6 @@
 package com.conatct_list.contact_list.exception;
 
+import com.conatct_list.contact_list.domain.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -24,6 +25,13 @@ public class ExceptionHandlerClass {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
 
     }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Response> handleMyException(RuntimeException ex) {
+        Response response = new Response(ex.getMessage(), false);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+
 
 
 }

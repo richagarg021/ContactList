@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@CrossOrigin("http://localhost:3002")
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/")
 @Slf4j
@@ -38,7 +38,7 @@ public class UserController {
             User u = userService.registerUser(user);
             return new ResponseEntity<>("User registered successfully", HttpStatus.CREATED);
         }catch (Exception e){
-            return new ResponseEntity<>("Registration failed", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
     }
