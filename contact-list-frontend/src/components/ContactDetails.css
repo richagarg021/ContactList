@@ -1,0 +1,31 @@
+.updateContact-wrapper{
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(149, 198, 246, 0.31);
+}
+.updateContact{
+    position: fixed;
+    width: 380px;
+    padding: 1% 2%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    border-radius: 6px;
+}
+.updateContact-heading{
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.input-box-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}

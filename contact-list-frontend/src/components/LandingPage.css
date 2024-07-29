@@ -1,0 +1,50 @@
+.landingPage{
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../../public/images/contact-background.webp"), no-repeat;
+    background-size: cover;
+    opacity: 0.3;
+}
+.content{
+    position: fixed;
+    width: 40%;
+    top: 30%;
+    left: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.contactUs{
+
+    margin: 0;
+    text-transform: uppercase;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.getStarted{
+    padding: 10px 35px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    background-color: rgba(251, 118, 69, 0.886);
+    margin-top: 20px;
+    border-radius: 6px;
+}
+.home-link{
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+}
+.getStarted :hover{
+    color: rgba(0, 0, 255, 0.784);
+}

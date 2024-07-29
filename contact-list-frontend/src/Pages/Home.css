@@ -1,0 +1,13 @@
+.header{
+    margin-bottom: 30px;
+}
+.main{
+    background-color:white;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 64%;
+    margin: 20px 18%;
+    height: 100%;
+}

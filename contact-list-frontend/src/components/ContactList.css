@@ -1,0 +1,49 @@
+
+.disabledPage{
+    pointer-events: none;
+    opacity: .7;
+}
+
+.main{
+    width: 100%;
+}
+.gridContainer{
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(23%, 1fr));
+    row-gap: 20px;
+    column-gap: 20px;
+}
+.pagination{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.paginationContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 25px 0px;
+}
+.buttons, .pages{
+    border: 1px solid black;
+    padding: 5px 10px;
+    color: black;
+    font-weight: 600;
+}
+
+.selectedPage{
+    background-color: #6096BA;
+    font-weight: 700;
+    color: white;
+}
+.noContact{
+    position: relative;
+    top: 50px;
+    font-weight: 600;
+    color: #425f91;
+    font-size: 20px;
+    text-align: center;
+}
