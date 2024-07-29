@@ -10,7 +10,8 @@ function LandingPage(){
             <div className="landingPage"></div>
             <div className="content">
                 <h1 className="contactUs">Contact Application</h1>
-                <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p className="text">With our intuitive design and seamless functionality, you'll never miss an opportunity to stay in 
+                touch. Dive into a clutter-free world where every contact counts and managing them is as simple as a breeze.</p>
                 <div className="getStarted">
                         <div><NavLink className="home-link" to="/user/contacts" >GET STARTED</NavLink></div>
                 </div>
