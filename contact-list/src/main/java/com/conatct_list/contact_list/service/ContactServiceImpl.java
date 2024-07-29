@@ -19,6 +19,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import static com.conatct_list.contact_list.constants.Constant.PHOTO_DIRECTORY;
@@ -132,5 +133,9 @@ public class ContactServiceImpl implements ContactService{
             e.printStackTrace();
             throw new RuntimeException("Unable to save image");
         }
+    }
+
+    public List<Contact> searchByName(String name) {
+        return contactRepo.findByNameStartingWith(name);
     }
 }

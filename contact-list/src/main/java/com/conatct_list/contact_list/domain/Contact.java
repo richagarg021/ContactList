@@ -1,5 +1,6 @@
 package com.conatct_list.contact_list.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -24,19 +25,25 @@ public class Contact {
     @Column(name = "id", unique = true, updatable = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @NotBlank(message = "Name cannot be blank")
     private String name;
+
     @NotBlank(message = "Email cannot be blank")
     @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.(com|org|in)$", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String email;
+
     @NotBlank(message = "Phone number cannot be blank")
     @Size(min = 10, max = 10, message = "Invalid Phone Number")
     private String phone;
+
     private String City;
+
     private String photoUrl;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
 }

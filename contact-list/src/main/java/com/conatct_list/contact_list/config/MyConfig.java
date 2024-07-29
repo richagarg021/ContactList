@@ -42,7 +42,7 @@ public class MyConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.requestMatchers("/register", "/login")
+                        authorizeRequests.requestMatchers("/register", "/login", "/contacts/image/*")
                                 .permitAll()
                                 .anyRequest().authenticated()
                 );

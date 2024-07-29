@@ -14,4 +14,8 @@ import java.util.Optional;
 public interface ContactRepo extends JpaRepository<Contact, Long> {
     public Page<Contact> findByUser(User user, Pageable pageable);
 
+    public List<Contact> findByNameStartingWith(String name);
+
+
+
 }
