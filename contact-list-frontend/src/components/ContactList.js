@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ContactList.css";
 import ContactCard from "./ContactCard";
 
 
 function ContactList({data, currentPage, getAllContacts, searchedContacts}){
+    var flag = false;
 
     const changePage =(pageNumber)=>{
         getAllContacts(pageNumber);
@@ -17,9 +18,11 @@ function ContactList({data, currentPage, getAllContacts, searchedContacts}){
     return (
         <>
             <div className="main">
+                
 
-                {data?.content?.length === 0 && <div className="noContact">No contacts. Please add a new one!</div>}
+                {data?.content?.length === 0  && <div className="noContact">No contacts. Please add a new one!</div>}
 
+                {searchedContacts?.data?.length === 0 ? flag=true && <h2>No contacts found!</h2> :
                 <div className="gridContainer">
                     
                     {searchedContacts?.data?.length > 0 
@@ -27,10 +30,11 @@ function ContactList({data, currentPage, getAllContacts, searchedContacts}){
                     : data?.content.length > 0 && data.content.map(contact => 
                         <ContactCard contact={contact} key={contact.id} getAllContacts={getAllContacts}/>)}
                     
-                </div>
+                </div>}
+                {console.log(flag)}
 
                 {
-                    (searchedContacts?.data?.length === 0 || searchedContacts.length===0) && pages.length !==0 &&  <div className="paginationContainer">
+                    flag === false && (searchedContacts?.data?.length === 0 || searchedContacts.length===0) &&  pages.length !==0 && flag===false && <div className="paginationContainer">
                     <div onClick={()=>changePage(--currentPage)} className={`buttons ${currentPage===0 ? 'disabledPage' : ''}`}>Previous</div>
                     {
                         pages.map((page, index) => (

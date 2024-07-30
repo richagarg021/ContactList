@@ -7,7 +7,6 @@ const Logout = () =>{
 
     useEffect(()=>{
         doLogout(() => {
-            alert("Logged out Successfully!")
             navigate('/login');
         });
     }, []);
