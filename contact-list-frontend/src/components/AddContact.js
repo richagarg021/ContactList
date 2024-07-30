@@ -61,11 +61,12 @@ function AddContact({setShowModal, getAllContacts, currentPage}){
             try{
                 // let sizeOfData = pageData?.content?.length;
                 // console.log(sizeOfData);
-                const {data} = await saveContact(contactData);
+                const {data : url} = await saveContact(contactData);
+                console.log(url);
                 if(file!==undefined){
                     const formData = new FormData();
                 formData.append('file', file, file.name);
-                formData.append('id', data.id);
+                formData.append('id', url.id);
                 const {data} = await uploadPhoto(formData);
                 }
                 setShowModal(false);
@@ -134,7 +135,7 @@ function AddContact({setShowModal, getAllContacts, currentPage}){
 
                     <div className="modalFooter">
                         <button type="button" onClick={()=>setShowModal(false)} className="cancel-btn">Cancel</button>
-                        <button type="submit" className="save-btn">Save</button>
+                        <button type="submit" className="save-btn" onClick={(e)=>addContact(e)}>Save</button>
                     </div>
 
                 </form>

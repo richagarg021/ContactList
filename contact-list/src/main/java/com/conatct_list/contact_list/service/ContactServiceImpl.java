@@ -136,6 +136,7 @@ public class ContactServiceImpl implements ContactService{
     }
 
     public List<Contact> searchByName(String name) {
-        return contactRepo.findByNameStartingWith(name);
+        User user = userRepo.findById(userService.getCurrentUserId()).get();
+        return contactRepo.findByNameStartingWithAndUser(name, user);
     }
 }

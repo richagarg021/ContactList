@@ -1,6 +1,7 @@
 package com.conatct_list.contact_list.service;
 
 import com.conatct_list.contact_list.domain.Contact;
+import com.conatct_list.contact_list.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
