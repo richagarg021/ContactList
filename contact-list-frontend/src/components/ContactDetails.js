@@ -33,41 +33,59 @@ function ContactDetails(){
         }
     }
 
+    const validateField = (field, value) => {
+        const validationErrors = {...errors};
+        switch(field) {
+            case 'name':
+                if(!value.trim()){
+                    validationErrors.name = "Name is required!"
+                }
+                else if(!/^(?!.*\d).*$/.test(value)){
+                    validationErrors.name = "name should not be contain numbers!"
+                } else {
+                    delete validationErrors.name;
+                }
+                break;
+            case 'email':
+                if(!value.trim()){
+                    validationErrors.email = "Email is required!"
+                }else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|in)/.test(value)){
+                    validationErrors.email = "email is not valid!"
+                } else {
+                    delete validationErrors.email;
+                }
+                break;
+            case 'phone':
+                if(!value.trim()){
+                    validationErrors.phone = "Phone number is required!"
+                }else if(value.length!==10){
+                    validationErrors.phone = "phone number is not valid!"
+                }
+                else if(!/[7-9]{1}[0-9]{9}/.test(value)){
+                    validationErrors.phone = "phone number is not valid!"
+                } else {
+                    delete validationErrors.phone;
+                }
+                break;
+            case 'city' :
+                if(!value.trim()){
+                    validationErrors.city = "City is required!"
+                }else if(!/^(?!.*\d).*$/.test(value)){
+                    validationErrors.city = "city should not be contain numbers!"
+                }else{
+                    delete validationErrors.city;   
+                }
+                break;
+            default:
+                break;
+        }
+        setErrors(validationErrors);
+    };
+
     const updateContactDetails = async(event) =>{
         event.preventDefault();
-        const validationErrors = {};
-        if(!contactData.name.trim()){
-            validationErrors.name = "Name is required!"
-        }
-        else if(!/^(?!.*\d).*$/.test(contactData.name)){
-            validationErrors.name = "name should not be contain numbers!"
-        }
 
-        if(!contactData.email.trim()){
-            validationErrors.email = "Email is required!"
-        }else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|in)/.test(contactData.email)){
-            validationErrors.email = "email is not valid!"
-        }
-
-        if(!contactData.phone.trim()){
-            validationErrors.phone = "Phone number is required!"
-        }else if(contactData.phone.length!==10){
-            validationErrors.phone = "phone number is not valid!"
-        }
-        else if(!/[7-9]{1}[0-9]{9}/.test(contactData.phone)){
-            validationErrors.phone = "phone number is not valid!"
-        }
-
-        if(!contactData.city.trim()){
-            validationErrors.city = "City is required!"
-        }else if(!/^(?!.*\d).*$/.test(contactData.city)){
-            validationErrors.city = "city is not valid!"
-        }
-
-        setErrors(validationErrors);
-
-
-        if(Object.keys(validationErrors).length===0){
+        if(Object.keys(errors).length===0){
             try{
                 event.preventDefault();
                 const {data} = await saveContact(contactData);            
@@ -108,14 +126,18 @@ function ContactDetails(){
                         <div className="form-input-box">
                             <label for="name-field" className="form-label">Name</label>
                             <input id="name-field" value={contactData.name} maxLength="24" className="form-field" type="text" 
-                            onChange={(event)=>setContactData({...contactData, name:event.target.value})}/>
+                            onChange={(event)=>{
+                                validateField('name', event.target.value);
+                                setContactData({...contactData, name:event.target.value})}}/>
                             {errors.name && <span className="errorMessage">{errors.name}</span>}         
                         </div> 
 
                         <div className="input-box">
                             <label for="email-field" className="form-label">Email</label>
                             <input id="email-field" className="form-field" value={contactData.email}
-                            onChange={(event)=>setContactData({...contactData, email:event.target.value})}/>
+                            onChange={(event)=>{
+                                validateField('email', event.target.value);
+                                setContactData({...contactData, email:event.target.value})}}/>
                             {errors.email && <span className="errorMessage">{errors.email}</span>}         
                         </div> 
                     </div>
@@ -124,14 +146,18 @@ function ContactDetails(){
                         <div className="input-box">
                             <label for="phoneNo-field" className="form-label">Phone Number</label>
                             <input id="phoneNo-field" className="form-field" value={contactData.phone}
-                            onChange={(event)=>setContactData({...contactData, phone:event.target.value})}/>  
+                            onChange={(event)=>{
+                                validateField('phone', event.target.value);
+                                setContactData({...contactData, phone:event.target.value})}}/>  
                             {errors.phone && <span className="errorMessage">{errors.phone}</span>}       
                         </div> 
 
                         <div className="input-box">
                             <label for="city-field" className="form-label">City</label>
                             <input id="city-field" className="form-field" type="text" value={contactData.city}
-                            onChange={(event)=>setContactData({...contactData, city:event.target.value})}/>
+                            onChange={(event)=>{
+                                validateField('city', event.target.value);
+                                setContactData({...contactData, city:event.target.value})}}/>
                             {errors.city && <span className="errorMessage">{errors.city}</span>}         
                         </div> 
                     </div>

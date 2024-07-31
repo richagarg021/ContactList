@@ -15,33 +15,50 @@ function Register(){
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
+
+    const validateField = (field, value) => {
+        const validationErrors = {...errors};
+        switch(field) {
+            case 'name':
+                if(!value.trim()) {
+                    validationErrors.name = "Name is required!";
+                } else if(/[\d]/.test(value)) {
+                    validationErrors.name = "Name should not contain numbers!";
+                } else {
+                    delete validationErrors.name;
+                }
+                break;
+            case 'email':
+                if(!value.trim()) {
+                    validationErrors.email = "Email is required!";
+                } else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|in)/.test(value)) {
+                    validationErrors.email = "Email is not valid!";
+                } else {
+                    delete validationErrors.email;
+                }
+                break;
+            case 'password':
+                if(!value.trim()) {
+                    validationErrors.password = "Password is required!";
+                } else if(value.length < 8) {
+                    validationErrors.password = "Password should be at least 8 characters!";
+                } else if(!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(value)) {
+                    validationErrors.password = "Password should be strong (at least 8 characters with uppercase, lowercase, digit, and special character).";
+                } else {
+                    delete validationErrors.password;
+                }
+                break;
+            default:
+                break;
+        }
+        setErrors(validationErrors);
+    };
  
     const userSignUp =async (e)=>{
 
         e.preventDefault();
-        const validationErrors = {};
-        if(!userData.name.trim()){
-            validationErrors.name = "Name is required!"
-        }
-        else if(!/^(?!.*\d).*$/.test(userData.name)){
-            validationErrors.name = "name should not be contain numbers!"
-        }
 
-        if(!userData.email.trim()){
-            validationErrors.email = "Email is required!"
-        }else if(!/[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|org|in)/.test(userData.email)){
-            validationErrors.email = "email is not valid!"
-        }
-
-        if(!userData.password.trim()){
-            validationErrors.password = "Password is required!"
-        }else if(userData.password.length < 8){
-            validationErrors.password = "password should be at least 8 characters!"
-        }
-
-        setErrors(validationErrors);
-
-        if(Object.keys(validationErrors).length ===0 ){
+        if(Object.keys(errors).length ===0 ){
             try{
                 const response = await signup(userData);
                 setUserData({name: '', email : '', password: ''});
@@ -66,9 +83,10 @@ function Register(){
                     <label for="name-field" className="label">Your Name</label>
                     <input id="name-field" className="field"  placeholder="Enter your name" 
                     onChange={(event)=>{
+                        validateField('name', event.target.value);
                         setUserData({...userData, name:event.target.value});
                     }} 
-                    value={userData.name} />
+                    value={userData.name} required />
                     {errors.name && <span className="errorMessage">{errors.name}</span>}         
                 </div> 
 
@@ -76,9 +94,10 @@ function Register(){
                     <label for="email-field" className="label">Email</label>
                     <input id="email-field" className="field" placeholder="Enter your email" 
                     onChange={(event)=>{
+                        validateField('email', event.target.value);
                         setUserData({...userData, email:event.target.value});
                     }}
-                    value={userData.email} />
+                    value={userData.email} required/>
                     {errors.email && <span className="errorMessage">{errors.email}</span>}           
                 </div> 
 
@@ -86,9 +105,10 @@ function Register(){
                     <label for="password-field"className="label">Password</label>
                     <input id="password-field" className="field" type="password" placeholder="Enter password"
                     onChange={(event)=>{
+                        validateField('password', event.target.value);
                         setUserData({...userData, password:event.target.value});
                     }} 
-                    value={userData.password} />
+                    value={userData.password} required/>
                     {errors.password && <span className="errorMessage">{errors.password}</span>}           
                 </div>
 
