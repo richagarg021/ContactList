@@ -81,7 +81,7 @@ function Register(){
 
                 <div className="input-box">
                     <label for="name-field" className="label">Your Name</label>
-                    <input id="name-field" className="field"  placeholder="Enter your name" 
+                    <input id="name-field" className="field" maxLength="25" placeholder="Enter your name" 
                     onChange={(event)=>{
                         validateField('name', event.target.value);
                         setUserData({...userData, name:event.target.value});
@@ -92,7 +92,7 @@ function Register(){
 
                 <div className="input-box">
                     <label for="email-field" className="label">Email</label>
-                    <input id="email-field" className="field" placeholder="Enter your email" 
+                    <input id="email-field" className="field" maxLength = "30" placeholder="Enter your email" 
                     onChange={(event)=>{
                         validateField('email', event.target.value);
                         setUserData({...userData, email:event.target.value});

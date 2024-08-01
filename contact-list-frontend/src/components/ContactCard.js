@@ -46,7 +46,7 @@ function ContactCard({contact, getAllContacts}){
                     <div className="imageWrapper">
                         <img className="contactImg" src={contact.photoUrl} alt=""/>
                     </div>
-                    <div className="name">{contact.name}</div>
+                    <div className="name">{contact.name.length > 20 ? contact.name.substring(0, 19) + "..." : contact.name}</div>
                 </div>
 
                 <div className="contactDetails">

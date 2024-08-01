@@ -3,19 +3,57 @@ import "./ContactDetails.css";
 import { useParams } from "react-router-dom";
 import { getContact, uploadPhoto,  saveContact } from "../services/contactService";
 import { useNavigate } from "react-router-dom";
+import 'react-phone-number-input/style.css'
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { Country, State, City } from 'country-state-city';
 
 function ContactDetails(){
+
+    const [countries, setCountries] = useState(Country.getAllCountries());
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
 
     const [contactData, setContactData] = useState({
         id : '',
         name : '',
         email: '',
         phone: '',
+        country : '',
+        state : '',
         city: '',
         photoUrl : '',
     });
    
+
     const [errors, setErrors] = useState({});
+    const validationErrors = {...errors};
+
+    const handleCountryChange = (countryCode) => {
+        setContactData(prevData => ({
+            ...prevData,
+            country: countryCode,
+            state: '', // Reset state when country changes
+            city: '' // Reset city when country changes
+        }));
+       
+        if(!contactData.state == ''){
+            validationErrors.state = "State is required!" 
+        }
+        setStates(State.getStatesOfCountry(countryCode)); 
+        
+        setCities([]);
+    };
+    
+    const handleStateChange = (stateCode) => {
+        setContactData(prevData => ({
+            ...prevData,
+            state: stateCode,
+            city: '' // Reset city when state changes
+        }));
+        setCities(City.getCitiesOfState(contactData.country, stateCode));
+        validationErrors.city = "City is required!" 
+        delete validationErrors.state;
+    };
 
     const navigate = useNavigate();
 
@@ -33,8 +71,8 @@ function ContactDetails(){
         }
     }
 
+
     const validateField = (field, value) => {
-        const validationErrors = {...errors};
         switch(field) {
             case 'name':
                 if(!value.trim()){
@@ -56,15 +94,22 @@ function ContactDetails(){
                 }
                 break;
             case 'phone':
-                if(!value.trim()){
-                    validationErrors.phone = "Phone number is required!"
-                }else if(value.length!==10){
-                    validationErrors.phone = "phone number is not valid!"
-                }
-                else if(!/[7-9]{1}[0-9]{9}/.test(value)){
-                    validationErrors.phone = "phone number is not valid!"
+                if(value === undefined || !value.trim()  ){
+                    validationErrors.phone = "Phone number is required!";
+                } else if(!isValidPhoneNumber(value)) {
+                    validationErrors.phone = "Phone number is not valid!";
                 } else {
                     delete validationErrors.phone;
+                }
+                break;
+            case 'country' : 
+                if(!value.trim()){
+                    validationErrors.country = "Country is required!"  
+                }
+                break;
+            case 'state' : 
+                if(!value.trim()){
+                    validationErrors.state = "State is required!"  
                 }
                 break;
             case 'city' :
@@ -87,9 +132,7 @@ function ContactDetails(){
 
         if(Object.keys(errors).length===0){
             try{
-                event.preventDefault();
                 const {data} = await saveContact(contactData);            
-                getSelectedContact(contactData.id);
                 navigate('/user/contacts');
             }catch(error){
                 console.log(error);
@@ -110,6 +153,25 @@ function ContactDetails(){
         getSelectedContact(id)
     }, []);
 
+    useEffect(() => {
+        // Fetch initial countries
+        const initialCountries = Country.getAllCountries();
+        setCountries(initialCountries);
+    
+        // If there's a selected country, fetch states
+        if (contactData.country) {
+            const initialStates = State.getStatesOfCountry(contactData.country);
+            setStates(initialStates);
+    
+            // If there's a selected state, fetch cities
+            if (contactData.state) {
+                const initialCities = City.getCitiesOfState(contactData.country, contactData.state);
+                setCities(initialCities);
+            }
+        }
+    }, [contactData.country, contactData.state]);
+
+
     return(
         <>
             <div className="updateContact-wrapper"></div>
@@ -122,45 +184,88 @@ function ContactDetails(){
                     
                     <div className="line"></div>
                     <input type="hidden" defaultValue={contactData.id} name="id" required/>
-                    <div className="input-box-wrapper">
-                        <div className="form-input-box">
-                            <label for="name-field" className="form-label">Name</label>
-                            <input id="name-field" value={contactData.name} maxLength="24" className="form-field" type="text" 
-                            onChange={(event)=>{
-                                validateField('name', event.target.value);
-                                setContactData({...contactData, name:event.target.value})}}/>
-                            {errors.name && <span className="errorMessage">{errors.name}</span>}         
-                        </div> 
+                    <div className="form-input-box">
+                        <label for="name-field" className="form-label">Name</label>
+                        <input id="name-field" value={contactData.name} maxLength="25" className="form-field" type="text" 
+                        onChange={(event)=>{
+                            validateField('name', event.target.value);
+                            setContactData({...contactData, name:event.target.value})}}/>
+                        {errors.name && <span className="errorMessage">{errors.name}</span>}         
+                    </div> 
 
-                        <div className="input-box">
-                            <label for="email-field" className="form-label">Email</label>
-                            <input id="email-field" className="form-field" value={contactData.email}
-                            onChange={(event)=>{
-                                validateField('email', event.target.value);
-                                setContactData({...contactData, email:event.target.value})}}/>
-                            {errors.email && <span className="errorMessage">{errors.email}</span>}         
-                        </div> 
+                    <div className="input-box">
+                        <label for="email-field" className="form-label">Email</label>
+                        <input id="email-field" className="form-field" maxLength="30" value={contactData.email}
+                        onChange={(event)=>{
+                            validateField('email', event.target.value);
+                            setContactData({...contactData, email:event.target.value})}}/>
+                        {errors.email && <span className="errorMessage">{errors.email}</span>}         
+                    </div> 
+                    
+
+                    <div className="input-box">
+                        <label for="phoneNo-field" className="form-label">Phone Number</label>
+                        <PhoneInput
+                            international
+                            defaultCountry="IN"
+                            value={contactData.phone}
+                            onChange={(value) => {
+                                validateField('phone', value);
+                                setContactData({...contactData, phone: value})
+                            }}
+                            required
+                        /> 
+                        {errors.phone && <span className="errorMessage">{errors.phone}</span>}       
+                    </div> 
+
+                    <div className="input-box">
+                        <label htmlFor="country-field" className="form-label">Country</label>
+                        <select id="country-field" className="form-field" value={contactData.country}
+                            onChange={(event) => {
+                                validateField('country', event.target.value);
+                                handleCountryChange(event.target.value)}} required>
+                            <option value="" disabled selected>---select---</option>
+                            {countries.map((country) => (
+                                <option key={country.isoCode} value={country.isoCode}>
+                                    {country.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.country && <span className="errorMessage">{errors.country}</span>}
+                    </div>
+                    <div className="input-box">
+                        <label htmlFor="state-field" className="form-label">State</label>
+                        <select id="state-field" className="form-field" value={contactData.state}
+                            onChange={(event) => {
+                                validateField('state', event.target.value);
+                                handleStateChange(event.target.value)}} required>
+                            <option value="" disabled selected>---select---</option>
+                            {states.map((state) => (
+                                <option key={state.isoCode} value={state.isoCode}>
+                                    {state.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.state && <span className="errorMessage">{errors.state}</span>}
                     </div>
 
-                    <div className="input-box-wrapper">
-                        <div className="input-box">
-                            <label for="phoneNo-field" className="form-label">Phone Number</label>
-                            <input id="phoneNo-field" className="form-field" value={contactData.phone}
-                            onChange={(event)=>{
-                                validateField('phone', event.target.value);
-                                setContactData({...contactData, phone:event.target.value})}}/>  
-                            {errors.phone && <span className="errorMessage">{errors.phone}</span>}       
-                        </div> 
-
-                        <div className="input-box">
-                            <label for="city-field" className="form-label">City</label>
-                            <input id="city-field" className="form-field" type="text" value={contactData.city}
-                            onChange={(event)=>{
+                    <div className="input-box">
+                        <label htmlFor="city-field" className="form-label">City</label>
+                        <select id="city-field" className="form-field" value={contactData.city}
+                            onChange={(event) => {
                                 validateField('city', event.target.value);
-                                setContactData({...contactData, city:event.target.value})}}/>
-                            {errors.city && <span className="errorMessage">{errors.city}</span>}         
-                        </div> 
+                                setContactData({ ...contactData, city: event.target.value });
+                            }} required>
+                            <option value="" disabled selected>---select---</option>
+                            {cities.map((city) => (
+                                <option key={city.name} value={city.name}>
+                                    {city.name}
+                                </option>
+                            ))}
+                        </select>
+                        {errors.city && <span className="errorMessage">{errors.city}</span>}
                     </div>
+                
 
                     <div className="file-input">
                         <span className="photoDiv">Change Photo</span>
