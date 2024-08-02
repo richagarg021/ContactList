@@ -78,8 +78,8 @@ function ContactDetails(){
                 if(!value.trim()){
                     validationErrors.name = "Name is required!"
                 }
-                else if(!/^(?!.*\d).*$/.test(value)){
-                    validationErrors.name = "name should not be contain numbers!"
+                else if(!/^[A-Za-z ]+$/.test(value)){
+                    validationErrors.name = "name should not contain numbers or special characters!"
                 } else {
                     delete validationErrors.name;
                 }
