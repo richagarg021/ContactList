@@ -88,10 +88,16 @@ function AddContact({setShowModal, getAllContacts, currentPage}){
                 if(!value.trim()){
                     validationErrors.country = "Country is required!"  
                 }
+                else {
+                    delete validationErrors.country;
+                }
                 break;
             case 'state' : 
                 if(!value.trim()){
                     validationErrors.state = "State is required!"  
+                }
+                else {
+                    delete validationErrors.state;
                 }
                 break;
             case 'city' :
