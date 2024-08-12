@@ -1,6 +1,7 @@
 package com.conatct_list.contact_list.controller;
 
 import com.conatct_list.contact_list.domain.Contact;
+import com.conatct_list.contact_list.dto.ContactDto;
 import com.conatct_list.contact_list.service.ContactService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -51,9 +52,9 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<Contact> createContact(@Valid @RequestBody Contact contact){
+    public ResponseEntity<Contact> createContact(@Valid @RequestBody ContactDto contactDto){
         try{
-            return ResponseEntity.ok().body(contactService.createContact(contact));
+            return ResponseEntity.ok().body(contactService.createContact(contactDto));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -75,9 +76,9 @@ public class ContactController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateContact(@PathVariable("id") Long id, @Valid @RequestBody Contact contact){
+    public ResponseEntity<?> updateContact(@PathVariable("id") Long id, @Valid @RequestBody ContactDto contactDto){
         try{
-            Contact c = contactService.updateContact(id, contact);
+            Contact c = contactService.updateContact(id, contactDto);
             return ResponseEntity.ok().body(c);
         }
         catch (Exception e){

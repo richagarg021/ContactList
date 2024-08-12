@@ -5,6 +5,7 @@ import com.conatct_list.contact_list.contactRepository.ContactRepo;
 import com.conatct_list.contact_list.contactRepository.UserRepo;
 import com.conatct_list.contact_list.domain.Contact;
 import com.conatct_list.contact_list.domain.User;
+import com.conatct_list.contact_list.dto.ContactDto;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -59,10 +60,10 @@ public class ContactServiceImpl implements ContactService{
             throw new RuntimeException("Contact not found!");
         }
 
-//        return contactRepo.findById(id).orElseThrow(() -> new RuntimeException("Contact not found"));
     }
 
-    public Contact createContact(Contact contact){
+    public Contact createContact(ContactDto contactDto){
+        Contact contact = contactDto.convertToContactEntity(contactDto);
         User user = userRepo.findById(userService.getCurrentUserId()).get();
         contact.setUser(user);
         return contactRepo.save(contact);
@@ -84,8 +85,9 @@ public class ContactServiceImpl implements ContactService{
             throw new RuntimeException("Contact not found");
     }
 
-    public Contact updateContact(Long id, Contact contact){
+    public Contact updateContact(Long id, ContactDto contactDto){
         Contact contactDb = contactRepo.findById(id).orElse(null);
+        Contact contact = contactDto.convertToContactEntity(contactDto);
         if(contactDb!=null){
             User user = contactDb.getUser();
             if(user.getUser_id().equals(userService.getCurrentUserId())){

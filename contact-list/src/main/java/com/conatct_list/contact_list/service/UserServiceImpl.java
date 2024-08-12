@@ -2,6 +2,7 @@ package com.conatct_list.contact_list.service;
 
 import com.conatct_list.contact_list.contactRepository.UserRepo;
 import com.conatct_list.contact_list.domain.User;
+import com.conatct_list.contact_list.dto.UserDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,7 +18,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User registerUser(User user){
+    public User registerUser(UserDto userDto){
+        User user = userDto.convertToUserEntity(userDto);
         if(emailExists(user.getEmail())){
             throw new RuntimeException("Email address already exists: " + user.getEmail());
         }

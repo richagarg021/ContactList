@@ -34,7 +34,6 @@ public class Contact {
     private String email;
 
     @NotBlank(message = "Phone number cannot be blank")
-//    @Size(min = 10, max = 10, message = "Invalid Phone Number")
     private String phone;
 
     private String Country;
