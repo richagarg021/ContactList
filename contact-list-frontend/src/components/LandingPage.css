@@ -40,6 +40,7 @@
     margin-top: 20px;
     border-radius: 6px;
 }
+
 .home-link{
     color: aliceblue;
     text-decoration: none;
@@ -48,21 +49,49 @@
 .getStarted :hover{
     color: rgba(0, 0, 255, 0.784);
 }
+
 @media screen and (max-width: 1250px) {
-    .content{
+    .content {
         width: 50%;
         left: 45%;
     }
 }
 @media screen and (max-width: 1070px) {
-    .content{
+    .content {
         top: 40%;
+        width: 70%; 
+        left: 15%;
+        
     }
-    .contactUs{
+    .landingPage{
+        opacity: 0.24;
+    }
+    .contactUs {
         font-size: 26px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
-    .text{
+    .text {
         font-size: 14px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 }
+@media screen and (max-width: 768px) {
+    .content {
+        width: 90%;
+        left: 5%;
+        top: 50%;
+    }
+    .contactUs {
+        font-size: 22px;
+        
+    }
+    .text {
+        font-size: 12px;
+    }
+    .getStarted {
+        padding: 8px 20px;
+        font-size: medium;
+    }
+}
+
 
