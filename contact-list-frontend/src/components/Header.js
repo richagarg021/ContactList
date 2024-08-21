@@ -21,9 +21,10 @@ function Header({setShowModal, noOfContacts, setSearchedContacts}){
     
     return (
         <>
+            <h3 className="totalContacts">Contact List ({noOfContacts})</h3>
             <header className="header">
                 <div className="mainDiv">
-                    <h3>Contact List ({noOfContacts})</h3>
+                    <h3 className="noOfContacts">Contact List ({noOfContacts})</h3>
                     <div className="searchBar">
                         <input className="searchInput" type="text" placeholder="Search your contact here"
                         onChange={(e)=>{ const name =e.target.value;
@@ -33,7 +34,9 @@ function Header({setShowModal, noOfContacts, setSearchedContacts}){
                     </div>
                     <button className="addContactBtn" onClick={()=> setShowModal(true) }>Add Contact</button>
                 </div>
+                
             </header>
+            
         </>
     );
 }

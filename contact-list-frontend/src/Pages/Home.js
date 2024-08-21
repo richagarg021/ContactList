@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { getContacts} from "../services/contactService";
 import ContactList from "../components/ContactList";
 import AddContact from "../components/AddContact";
+import Navbar from "../components/Navbar";
 
 function Home(){
 
@@ -32,6 +33,7 @@ function Home(){
 
     return(
         <>
+            <Navbar/>
             <div className="main">
                 <div className="container">
                     <Header  setShowModal={setShowModal} noOfContacts={data?.data?.totalElements} setSearchedContacts={setSearchedContacts}/>

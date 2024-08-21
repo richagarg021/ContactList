@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url("../../public/images/contact-background.webp"), no-repeat;
+    background: url("../../public/images/background-img.jpg"), no-repeat;
     background-size: cover;
     opacity: 0.3;
 }
@@ -48,3 +48,21 @@
 .getStarted :hover{
     color: rgba(0, 0, 255, 0.784);
 }
+@media screen and (max-width: 1250px) {
+    .content{
+        width: 50%;
+        left: 45%;
+    }
+}
+@media screen and (max-width: 1070px) {
+    .content{
+        top: 40%;
+    }
+    .contactUs{
+        font-size: 26px;
+    }
+    .text{
+        font-size: 14px;
+    }
+}
+

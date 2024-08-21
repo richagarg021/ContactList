@@ -9,6 +9,9 @@
     align-items: center;
     justify-content: space-between;  
 }
+.totalContacts{
+    display: none;
+}
 .addContactBtn{
     height: 40px;
     color: white;
@@ -43,4 +46,90 @@
     background-color: rgba(130, 163, 186);
     font-weight: bold;
     color: black;
+}
+
+@media screen and (max-width: 900px) {
+    .noOfContacts{
+        font-size: 18px;
+    }
+    .searchBar{
+        width: 55%;
+    }
+}
+@media screen and (max-width: 760px) {
+    .noOfContacts{
+        font-size: 16px;
+    }
+    .header{
+        height: 45px;
+    }
+    .searchInput{
+        width: 80%;
+    }
+    .searchBtn{
+        width: 20%;
+    }
+    .addContactBtn{
+        font-size: 13px;
+        height: 35px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .noOfContacts{
+        font-size: 14px;
+    }
+    .searchBar{
+        width: 48%;
+    }
+    .header{
+        height: 40px;
+    }
+    .searchInput{
+        width: 75%;
+        font-size: 12px;
+        padding-left: 10px;
+    }
+    .searchBtn{
+        width: 25%;
+        font-weight: 600;
+        font-size: 13px;
+    }
+    .addContactBtn{
+        padding: 0 5px;
+        font-size: 12px;
+    }   
+}
+@media screen and (max-width: 500px) {
+    .noOfContacts{
+        display: none;
+    }
+    .searchBar{
+        width: 72%;
+    }
+    .addContactBtn{
+        width: 22%;
+    }
+    .totalContacts{
+        display: block;
+        margin-top: 0;
+        margin-bottom: 7px;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 460px){
+    .addContactBtn{
+        width: 28%;
+    }
+    .searchBar{
+        width: 65%;
+    }
+}
+@media screen and (max-width: 390px){
+    .addContactBtn{
+        width: 29%;
+    }
+    .searchBar{
+        width: 66%;
+    }
 }

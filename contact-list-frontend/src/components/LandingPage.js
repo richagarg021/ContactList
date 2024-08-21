@@ -1,12 +1,14 @@
 import React from "react";
 import "./LandingPage.css";
 import { NavLink } from "react-router-dom";
+import LandingNavbar from "./LandingNavbar";
 
 function LandingPage(){
 
 
     return (
         <>
+            <LandingNavbar/>
             <div className="landingPage"></div>
             <div className="content">
                 <h1 className="contactUs">Contact Application</h1>

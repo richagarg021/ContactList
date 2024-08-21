@@ -139,3 +139,25 @@
     margin-top: 15px;
     margin-bottom: 10px;
 }
+
+@media screen and (max-width: 760px) {
+    .name{
+        font-size: 14px;
+    }
+    .details{
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 700px) {
+    .name{
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 460px) {
+    .name{
+        font-size: 18px;
+    }
+    .details{
+        font-size: 14px;
+    }
+}

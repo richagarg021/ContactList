@@ -10,12 +10,9 @@ import Home from './Pages/Home';
 import LandingPage from './components/LandingPage';
 
 function App() {
-
-
   return (
-    <div className="App">
       <Router>
-          <Navbar/>
+          {/* <Navbar/> */}
           <Routes>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<Register/>}/>
@@ -27,7 +24,7 @@ function App() {
             </Route>
           </Routes>
         </Router>
-    </div>
+    
   );
 }
 

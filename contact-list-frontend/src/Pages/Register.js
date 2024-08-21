@@ -3,6 +3,7 @@ import { useState} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Register.css";
 import { signup } from "../services/userService";
+import LandingNavbar from "../components/LandingNavbar";
 
 function Register(){
 
@@ -40,8 +41,6 @@ function Register(){
             case 'password':
                 if(!value.trim()) {
                     validationErrors.password = "Password is required!";
-                } else if(value.length < 8) {
-                    validationErrors.password = "Password should be at least 8 characters!";
                 } else if(!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$/.test(value)) {
                     validationErrors.password = "Password should be strong (at least 8 characters with uppercase, lowercase, digit, and special character).";
                 } else {
@@ -74,6 +73,7 @@ function Register(){
 
     return (
         <>
+            <LandingNavbar/>
             <div className="registrationForm">
             <div className="form-box">
             <form action="" onSubmit={userSignUp}>

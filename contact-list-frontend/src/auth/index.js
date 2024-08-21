@@ -1,9 +1,19 @@
-//isLoggedIn 
-export const isLoggedIn =() =>{
-    let data = localStorage.getItem("data");
-    if(data == null) return false;
-    else return true;
-}
+import {jwtDecode} from "jwt-decode"
+
+
+export const isLoggedIn = () => {
+    const token = localStorage.getItem("data");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; 
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem("data");        
+        return false;
+      }
+      return true;
+    }
+    return false;
+  };
 
 //doLogin=> token=> set to localstorage
 

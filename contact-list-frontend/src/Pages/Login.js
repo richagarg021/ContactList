@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 import { login } from "../services/userService";
 import { doLogin } from "../auth";
+import Navbar from "../components/Navbar";
+import LandingNavbar from "../components/LandingNavbar";
 
 
 function Login() {
@@ -35,9 +37,9 @@ function Login() {
 
   return (
     <>
+      <LandingNavbar/>
       <div className="loginForm">
-        <div className="form-box">
-          <form onSubmit={userLogin}>
+          <form onSubmit={userLogin} className="form-box">
             <h2 className="heading">Login</h2>
 
             <div className="input-box">
@@ -84,7 +86,6 @@ function Login() {
               </Link>
             </div>
           </form>
-        </div>
       </div>
     </>
   );

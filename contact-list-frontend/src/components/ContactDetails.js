@@ -149,6 +149,8 @@ function ContactDetails(){
         console.log(error);}
     }
 
+    console.log(contactData.photoUrl);
+
     useEffect(()=>{
         getSelectedContact(id)
     }, []);
@@ -269,7 +271,7 @@ function ContactDetails(){
 
                     <div className="file-input">
                         <span className="photoDiv">Change Photo</span>
-                        <input type="file" name='photo' onChange={(e)=>updatePhoto(e.target.files[0]) } defaultValue={contactData.photoUrl}/>
+                        <input type="file" name='photo' onChange={(e)=>updatePhoto(e.target.files[0])} defaultValue={contactData.photoUrl}/>
                     </div>
 
                     <div className="modalFooter">

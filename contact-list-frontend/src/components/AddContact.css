@@ -76,3 +76,9 @@
 .cancel-btn{
     background-color: rgba(255, 108, 55, 0.792);
 }
+
+@media screen and (max-width: 600px) {
+    .contactModal{
+        width: 310px;
+    }
+}

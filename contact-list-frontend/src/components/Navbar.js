@@ -13,12 +13,12 @@ function Navbar(){
                     <div className="linkDiv">
                         <div><NavLink className="link" to="/user/contacts" >HOME</NavLink></div>
                     </div>
-                    <div className="linkDiv">
+                    {/* <div className="linkDiv">
                         <div><NavLink className="link" to="/login">LOGIN</NavLink></div>
                     </div>
                     <div className="linkDiv">
                         <div><NavLink className="link" to="/signup">SIGNUP</NavLink></div>
-                    </div>
+                    </div> */}
                     <div className="linkDiv">
                         <div><NavLink className="link" to="/logout">LOGOUT</NavLink></div>
                     </div>

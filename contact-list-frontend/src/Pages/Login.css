@@ -1,6 +1,6 @@
-.loginForm{
-    width:100vw;
-    height: 100vh;
+.loginForm {
+    width: 100%;
+    height: calc(100vh - 50px);
     background-color: rgb(234, 244, 251);
 }
 .form-box{
@@ -8,11 +8,11 @@
     height: fit-content;
     border-radius: 10px;
     position: absolute;
-    margin: 50px 32.5%;
     border: none;
     box-shadow: 1px 1px 8px rgba(20, 69, 118, 0.942);
     background-color: white;
-    padding: 3% 2%;       
+    padding: 3% 2%;    
+    margin: 50px 37.5%;   
 }
 
 .heading{
@@ -72,4 +72,34 @@
     color: rgba(34, 75, 116, 0.763);
     font-weight: bold;
     
+}
+@media screen and (max-width: 1000px) {
+    .form-box{
+        width: 35%;
+        margin: 50px 32.5%;
+    }
+}
+@media screen and (max-width: 760px) {
+    .form-box{
+        width: 45%;
+        margin: 50px 27.5%;
+    }
+}
+@media screen and (max-width: 590px) {
+    .form-box{
+        width: 60%;
+        margin: 50px 20%;
+    }
+}
+@media screen and (max-width: 440px) {
+    .form-box{
+        width: 70%;
+        margin: 40px 12.5%;
+    }
+}
+@media screen and (max-width: 390px) {
+    .form-box{
+        width: 80%;
+        margin: 40px 7.5%;
+    }
 }

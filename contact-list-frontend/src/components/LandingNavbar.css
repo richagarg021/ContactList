@@ -9,7 +9,7 @@
     background-color: rgba(34, 75, 116, 0.70);
     z-index: 4;
 }
-.links{
+.landing-page-links{
     display: flex;
     flex-direction: row;
     width: 17%;
@@ -23,9 +23,9 @@
     font-size: 20px;
     text-transform: uppercase;
 }
-.linkDiv{
+.link-div{
     width: 40%;
-    height: 32px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,7 +37,7 @@
     font-weight: 500;
     font-size: 18px;
 }
-.linkDiv:hover{
+.link-div:hover{
     background-color: rgb(79, 220, 220);
     cursor: pointer;
 }
@@ -45,7 +45,7 @@
     color: blue;
 }
 @media screen and (max-width: 940px) {
-    .links{
+    .landing-page-links{
         width: 24%;
     }
     .navbar{
@@ -53,19 +53,22 @@
     }
 }
 @media screen and (max-width: 640px) {
-    .links{
+    .projectName{
+        font-size: 18px;
+    }
+    .landing-page-links{
         width: 28%;
     }
     .navbar{
         padding-right: 5%;
     }
-    .projectName{
-        font-size: 18px;
-    }
 }
 @media screen and (max-width: 550px) {
     .link{
         font-size: 16px;
+    }
+    #home{
+        display: none;
     }
 }
 @media screen and (max-width: 460px) {
@@ -75,7 +78,7 @@
     .link{
         font-size: 15px;
     }
-    .links{
+    .landing-page-links{
         width: 32%;
     }
 }

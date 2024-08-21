@@ -1,4 +1,3 @@
-
 .disabledPage{
     pointer-events: none;
     opacity: .6;
@@ -46,4 +45,27 @@
     color: #425f91;
     font-size: 20px;
     text-align: center;
+}
+
+@media screen and (max-width: 1050px) {
+    .gridContainer{
+        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    }
+}
+@media screen and (max-width: 700px) {
+    .gridContainer{
+        grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+        column-gap: 30px;
+    }
+}
+@media screen and (max-width: 460px) {
+    .gridContainer{
+        grid-template-columns: repeat(auto-fill, minmax(70%, 1fr));
+        margin: 0 15%;
+    }
+}
+@media screen and (max-width: 380px) {
+    .gridContainer{
+        margin: 0 5%;
+    }
 }
